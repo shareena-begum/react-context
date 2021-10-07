@@ -1,17 +1,27 @@
-import React, {Component} from "react"
+import React from "react"
+import PropTypes from "prop-types"
 import ThemeContext from "./themeContext"
 
-class Button extends Component {
-    render () {
-        console.log(this.context)
+ function Button(props)  {   
         return (
-            <button className="light-theme">
-                Switch Theme
-            </button>
+            <ThemeContext.Consumer>
+                {theme => (
+                    <button className= {`${props.theme}-theme`}>
+                        Switch Theme
+                    </button>   
+                )}
+            </ThemeContext.Consumer>
         )
-    }
 }
 
-Button.contextType = ThemeContext
+Button.PropTypes = {
+    theme: PropTypes.oneOf(["light", "dark"])
+}
+
+Button.defaultProps = {
+    theme: "light"
+}
+
+
 
 export default Button
